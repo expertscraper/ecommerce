@@ -4,13 +4,19 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Product;
+use App\Customer;
 use App\Client;
 class Invoice extends Model
 {
     protected $fillable = [
-        'client_id', 'status', 'due_date','tax','discount',
-        'amount_total','amount_due','note'
+        'customer_id', 'invoice_id','status', 'closing_date','tax','discount',
+        'grand_total','total','comment'
     ];
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 
     public function client()
     {

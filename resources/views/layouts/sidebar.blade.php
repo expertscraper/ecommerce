@@ -8,6 +8,20 @@
 <li class="treeview">
   <a href="#">
     <i class="fa fa-list-alt"></i>
+    <span>Cusotmer</span>
+    <span class="pull-right-container">
+      <i class="fa fa-angle-left pull-right"></i>
+    </span>
+  </a>
+  <ul class="treeview-menu">
+    <li @if (Request::is('shops/customer')) class="active" @endif ><a href="{{ route('shops.customer') }}"><i class="fa fa-circle-o"></i> Customer</a></li>
+    <li @if (Request::is('shops/customer/new')) class="active" @endif><a href="{{ route('shops.customer.new') }}"><i class="fa fa-circle-o"></i> Add New Customer</a></li>
+  </ul>
+</li>
+
+<li class="treeview">
+  <a href="#">
+    <i class="fa fa-list-alt"></i>
     <span>Estimate</span>
     <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>

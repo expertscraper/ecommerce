@@ -11,7 +11,10 @@ class InvoiceController extends Controller
 {
     public function index()
     {
+        $customer = Customer::select('id','customer_code','customer_name','closing_date')->get();
+        echo json_encode($customer);exit;
         $invoices = Invoice::with('client')->paginate(5);
+        // echo json_encode($invoices);exit;
         //echo json_encode($invoices[0]->client);exit;
         return view('invoice.invoice',compact('invoices'));
         //return view('invoice.invoice');
@@ -50,6 +53,7 @@ class InvoiceController extends Controller
     {
         $product = Product::with('invoice')
                 ->where('invoice_id','=',$id)->get();
+        echo json_encode($product);exit;
         return view('invoice.show',compact('product'));
     }
 

@@ -36,7 +36,7 @@
       <div class="box-header with-border">
          <h3 class="box-title pull-right">
             <div class="box-tools ">
-               <a href="{{ route('invoice.invoices.new')}}" class="btn btn-primary btn-xs"> <i class="fa fa-plus"></i> New Invoice</a>
+               <a href="{{ route('shops.invoices.new')}}" class="btn btn-primary btn-xs"> <i class="fa fa-plus"></i> New Invoice</a>
             </div>
          </h3>
       </div>
@@ -90,7 +90,7 @@
                   <td class="text-right"></td>
                   <td class="text-right">{{ $invoice->amount_due }} </td>
                   <td>
-                     <a class="btn btn-info btn-xs" href="#" data-rel="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-eye"></i></a>                                                                    <a href="http://ci.elantsys.com/invoices/pdf/e3aaeaf7-7dcf-450f-969f-50fcde63a1b7" data-rel="tooltip" data-placement="top" title="" class="btn btn-xs btn-primary" data-original-title="Download Invoice"><i class="fa fa-download"></i> </a>
+                     <a class="btn btn-info btn-xs" href="{{ route('shops.invoices.show',$invoice->invoice_id)}}" data-rel="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-eye"></i></a>                                                                    <a href="http://ci.elantsys.com/invoices/pdf/e3aaeaf7-7dcf-450f-969f-50fcde63a1b7" data-rel="tooltip" data-placement="top" title="" class="btn btn-xs btn-primary" data-original-title="Download Invoice"><i class="fa fa-download"></i> </a>
                      <a href="#" data-rel="tooltip" data-toggle="ajax-modal" data-placement="top" title="" class="btn btn-xs btn-warning" data-original-title="Add Payment"><i class="fa fa-usd"></i> </a>
                      <a href="#" data-rel="tooltip" data-placement="top" title="" class="btn btn-xs btn-success" data-original-title="Edit Invoice"><i class="fa fa-pencil"></i></a>
                      <a class="btn btn-danger btn-xs btn-delete" data-rel="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>

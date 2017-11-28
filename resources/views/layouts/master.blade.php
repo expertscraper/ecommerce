@@ -24,7 +24,7 @@
   <!-- <link rel="stylesheet" href="{!! asset('css/kendo.default.min.css') !!}"> -->
   <!-- <link rel="stylesheet" href="{!! asset('css/kendo.rtl.min.css') !!}"> -->
 
-
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   <link rel="stylesheet" type="text/css" href="{!! asset('css/datepicker3.css') !!}">
   <!-- <link rel="stylesheet" type="text/css" href="{{ asset('js/bootstrapValidator.min.css')}}">
 <script type="text/javascript" src = "{{ asset('js/bootstrapValidator.min.js')}}"></script>  -->
@@ -38,6 +38,7 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  
 </head>
 <body class="skin-blue sidebar-mini" id="app">
 <div class="wrapper">
@@ -185,7 +186,7 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.0
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+    <strong>Copyright &copy; 2014-2016 <a href="#">Admin Studio</a>.</strong> All rights
     reserved.
   </footer>
 
@@ -207,6 +208,9 @@
 <!-- <script src="{!! asset('js/fastclick.js') !!}"></script> -->
 <!-- AdminLTE App -->
 <script src="{!! asset('js/adminlte.js') !!}"></script>
+
+@yield('script')
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/en.js"></script> -->
 <!-- Sparkline -->
 <!-- <script src="{!! asset('js/jquery.sparkline.min.js') !!}"></script> -->
 <!-- jvectormap -->

@@ -1,6 +1,8 @@
 @extends('layouts.master')
 
 @section('content')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+  
 <div class="content-header clearfix">
     <h1 class="pull-left">
         Add New Invoice
@@ -15,7 +17,7 @@
 </div>
 <div class="content">
 <div class="form-horizontal">
-<form action="{{ route('invoice.invoices.new')}}" role="form" class="form-horizontal" method="post" accept-charset="utf-8">            
+<form action="{{ route('shops.invoices.new')}}" role="form" class="form-horizontal" method="post" accept-charset="utf-8">            
 <div class="panel panel-default panel-search">
     <div class="panel-body">
         <div class="row">
@@ -37,11 +39,26 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-4">
-                        <div class="label-wrapper"><label class="control-label" for="invoice_number" title="">Invoice Number</label>
+                        <div class="label-wrapper"><label class="control-label" for="invoice_number" title="">Invoice Type</label>
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" name="invoice_number" id="invoice_number" autocomplete="off" class="form-control ui-autocomplete-input">
+                        <input type="text" name="invoice_type" id="invoice_type" autocomplete="off" class="form-control ui-autocomplete-input">
+                        
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-4">
+                        <div class="label-wrapper"><label class="control-label" for="customer_name" title="">Customer Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <p>
+                        <select class="js-example-data-array form-control" tabindex="-1" aria-hidden="true">
+                            
+                        </select>
+                      </p>
+                        <!-- <input type="text" name="customer_name" id="customer_name" autocomplete="off" class="form-control ui-autocomplete-input"> -->
                         
                     </div>
                 </div>
@@ -271,14 +288,51 @@
 </form>
 </div>
 <script type="text/javascript" src="{{ url('js/vue.js') }}"></script>
-<script type="text/javascript" src="{{ url('js/jquery.js')}}"></script>
+<script type="text/javascript" src="{{ url('js/jquery-3.1.1.min.js')}}"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
 <script type="text/javascript" src="{{ url('js/bootstrap-datepicker.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 <script type="text/javascript">
     //Datepicker
+    $(document).ready(function(){
+        
+    });
     $("#datepicker").datepicker({
         format: 'yyyy-mm-dd'
     });
+    var data = [
+        {
+            id: 0,
+            text: 'enhancement'
+        },
+        {
+            id: 1,
+            text: 'bug'
+        },
+        {
+            id: 2,
+            text: 'duplicate'
+        },
+        {
+            id: 3,
+            text: 'invalid'
+        },
+        {
+            id: 4,
+            text: 'wontfix'
+        }
+    ];
+
+        $(".js-example-data-array").select2({
+          data: data
+        });
+
+        $(".js-example-data-array-selected").select2({
+          data: data
+        });
+    
+
 </script>
   <script>
     new Vue({
@@ -344,6 +398,15 @@
           
         }
     })
+    
+    // $('.js-data-example-ajax').select2({
+    //   ajax: {
+    //     url: 'https://api.github.com/search/repositories',
+    //     dataType: 'json'
+    //     // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
+    //   }
+    // });
+
     
   </script>
 
