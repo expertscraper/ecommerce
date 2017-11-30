@@ -1,21 +1,30 @@
 @extends('layouts.master')
 
 @section('content')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <div class="content-header clearfix">
     <h1 class="pull-left">
-        Manage Estimate
+        Manage Customer
     </h1>
     <div class="pull-right">
-        <a href="" class="btn bg-orange">
+        <a href="{{ route('shops.customer.new') }}" class="btn bg-orange">
             <i class="fa fa-plus-square"></i>
-            Add new Estimate
+            Add new Customer
         </a>
         
     </div>
 </div>
+<div class="flash-message">
+   @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+   @if(Session::has('alert-' . $msg))
+   <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+   @endif
+   @endforeach
+</div>
 <div class="content">
     <div class="form-horizontal">
         <div class="panel-group">
+            <form name="data_search" method="post" action="{{ route('shops.customer.search') }}">
             <div class="panel panel-default panel-search">
                 <div class="panel-body">
                     <div class="row">
@@ -23,15 +32,30 @@
                             <div class="form-group">
                                 <div class="col-md-4">
                                     <div class="label-wrapper">
-                                    	<label class="control-label" for="SearchCategoryName" title="">Estimate name</label>
-                                    	<div class="ico-help" title="A category name."><i class="fa fa-question-circle"></i></div>
+                                    	<label class="control-label" for="SearchCategoryName" title="">Customer Code</label>
+                                    	<!-- <div class="ico-help" title="A category name."><i class="fa fa-question-circle"></i></div> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <p>
+                                      <select class="js-example-data-array form-control" tabindex="-1" aria-hidden="true">
+                                          
+                                      </select>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-4">
+                                    <div class="label-wrapper">
+                                      <label class="control-label" for="SearchCategoryName" title="">Customer name</label>
+                                      <div class="ico-help" title="A category name."><i class="fa fa-question-circle"></i></div>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
                                     <input class="form-control text-box single-line" id="SearchCategoryName" name="SearchCategoryName" type="text" value="">
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <div class="col-md-8 col-md-offset-4">
                                     <button type="button" id="search-categories" class="btn btn-primary btn-search"><i class="fa fa-search"></i>Search</button>
@@ -41,7 +65,7 @@
                     </div>
                 </div>
             </div>
-
+          </form>
             <!-- div class="panel panel-default">
                 <div class="panel-body">
                     <div id="categories-grid" data-role="grid" class="k-grid k-widget">
@@ -54,7 +78,9 @@
             </div> -->
             <!-- /.box-header -->
             <div class="box-body">
-              <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap"><div class="row"><div class="col-sm-6"><div class="dataTables_length" id="example1_length"><label>Show <select name="example1_length" aria-controls="example1" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-6"><div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="example1"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+              <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap"><div class="row"><div class="col-sm-6"><div class="dataTables_length" id="example1_length"><label>Show <select name="example1_length" aria-controls="example1" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-6"><div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="example1"></label></div></div></div>
+                <div class="row"><div class="col-sm-12">
+                <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                 <thead>
                 <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 181px;">Rendering engine</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 223px;">Browser</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 197px;">Platform(s)</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 155px;">Engine version</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 112px;">CSS grade</th></tr>
                 </thead>
@@ -132,4 +158,44 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script type="text/javascript">
+    
+    // var data = [
+    //     {
+    //         id: 0,
+    //         text: 'enhancement'
+    //     },
+    //     {
+    //         id: 1,
+    //         text: 'bug'
+    //     },
+    //     {
+    //         id: 2,
+    //         text: 'duplicate'
+    //     },
+    //     {
+    //         id: 3,
+    //         text: 'invalid'
+    //     },
+    //     {
+    //         id: 4,
+    //         text: 'wontfix'
+    //     }
+    // ];
+    var data = <?= $code ?>;
+    //alert(data);
+    $(".js-example-data-array").select2({
+        data: data
+      });
+
+      $(".js-example-data-array-selected").select2({
+        data: data
+      });
+
+</script>
+
 @endsection

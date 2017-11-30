@@ -5,17 +5,18 @@
     <h1 class="pull-left">
         Add New Customer
     </h1>
-    <!-- <div class="pull-right">
-        <a href="" class="btn bg-orange">
+    <div class="pull-right">
+        <a href="{{ route('shops.customer') }}" class="btn bg-orange">
             <i class="fa fa-plus-square"></i>
-            Save
+            Show Customer
         </a>
         
-    </div> -->
+    </div>
 </div>
 <div class="content">
 <div class="form-horizontal">
-<form name="data">
+<form name="data" method="post" action="{{ route('shops.customer.save') }}">
+    {!! csrf_field() !!}
 <div class="panel panel-default panel-search">
     <div class="panel-body">
         <div class="row">
@@ -71,11 +72,11 @@
                     </div>
                     <div class="col-md-8">
                         <div class="input-group">
-                            <input type="text" name="street_1" id="street_1" autocomplete="off" class="form-control ui-autocomplete-input" size=40>
+                            <input type="text" name="street_address[]" id="street_1" autocomplete="off" class="form-control ui-autocomplete-input" size=40>
 
                         </div>  
                         <div class="input-group">
-                            <input type="text" name="street_2" id="street_2" autocomplete="off" class="form-control ui-autocomplete-input" size=40>
+                            <input type="text" name="street_address[]" id="street_2" autocomplete="off" class="form-control ui-autocomplete-input" size=40>
                             
                         </div> 
                     </div>
@@ -193,11 +194,11 @@
                     </div>
                     <div class="col-md-8">
                         <div class="input-group">
-                             <input type="text" name="billing_address_1" id="billing_address_1" autocomplete="off" class="form-control ui-autocomplete-input" size=60>
+                             <input type="text" name="billing_address[]" id="billing_address_1" autocomplete="off" class="form-control ui-autocomplete-input" size=60>
 
                         </div>  
                         <div class="input-group">
-                             <input type="text" name="billing_address_2" id="billing_address_2" autocomplete="off" class="form-control ui-autocomplete-input" size=60>
+                             <input type="text" name="billing_address[]" id="billing_address_2" autocomplete="off" class="form-control ui-autocomplete-input" size=60>
 
                         </div>  
                     </div>
@@ -211,8 +212,8 @@
                     </div>
                     <div class="col-md-8">
                         <div class="input-group">
-                            <input id="datepicker" type="text" name="billing_date" value="" placeholder="billing date" class="form-control datepicker" required="">                        
-                            <span class="input-group-addon" id="basic-addon2"> <i class="fa fa-calendar"></i> </span>
+                            <!-- <input id="datepicker" type="text" name="billing_date" value="" placeholder="billing date" class="form-control datepicker" required="">                        
+                            <span class="input-group-addon" id="basic-addon2"> <i class="fa fa-calendar"></i> </span> -->
 
                         </div>   
                     </div>
@@ -234,7 +235,7 @@
             
             
             <div>
-            	<button type="button" id="save" class="tn bg-orange btn-flat col-xs-6 col-xs-offset-2"><i class="fa fa-plus-square"></i> Create Customer</button>&nbsp;
+            	<button type="submit" id="save" class="tn bg-orange btn-flat col-xs-6 col-xs-offset-2"><i class="fa fa-plus-square"></i> Create Customer</button>&nbsp;
                 <button type="reset" class="btn btn-default btn-flat col-xs-offset-2">Reset</button>
             </div>
         </div>
@@ -248,9 +249,12 @@
 @endsection
 
 @section('script')
-
+<!-- <script type="text/javascript" src="{{ url('js/jquery-3.1.1.min.js')}}"></script> -->
+<script type="text/javascript" src="{{ url('js/bootstrap-datepicker.js') }}"></script>
 <script type="text/javascript">
-	
+	$("#datepicker").datepicker({
+        format: 'yyyy-mm-dd'
+    });
 	$("#customer_code").on('change', function(){
 	      code = $(this).val();
 	      $.ajax({
@@ -283,21 +287,21 @@
 			
 	});
 
-	$("#save").on('click',function(){
-		data = $("data").serialize();
-		alert(data);
-		// $.ajax({
-		//     type:'POST',
-		//     url: "save",
-		//     data: data,
-		//     dataType:'json'
-		// }).done(function(data){
-		// 	if(data.result == false)
-		// 	{
-		// 		alert("Already Exit!");
-		// 	}
-		// });
-	});
+	// $("#save").on('click',function(){
+	// 	data = $("data").serialize();
+	// 	alert(data);
+	// 	// $.ajax({
+	// 	//     type:'POST',
+	// 	//     url: "save",
+	// 	//     data: data,
+	// 	//     dataType:'json'
+	// 	// }).done(function(data){
+	// 	// 	if(data.result == false)
+	// 	// 	{
+	// 	// 		alert("Already Exit!");
+	// 	// 	}
+	// 	// });
+	// });
 
 </script>
 
