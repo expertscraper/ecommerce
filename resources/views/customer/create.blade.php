@@ -91,7 +91,13 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                    	<input type="text" name="phone_number" id="phone_number" autocomplete="off" class="form-control ui-autocomplete-input">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="fa fa-phone"></i>
+                          </div>
+                          <input type="text" name="phone_number" id="phone_number" class="form-control" data-inputmask="&quot;mask&quot;: &quot;(999) 999-9999&quot;" data-mask="">
+                        </div>
+                    	<!-- <input type="text" name="phone_number" id="phone_number" autocomplete="off" class="form-control ui-autocomplete-input"> -->
                         
                     </div>
                 </div>
@@ -101,8 +107,12 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" name="fax_number" id="fax_number" autocomplete="off" class="form-control ui-autocomplete-input">
-                        
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-fax"></i>
+                              </div>
+                            <input type="text" name="fax_number" id="fax_number" autocomplete="off" class="form-control ui-autocomplete-input">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -212,6 +222,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="input-group">
+
                             <!-- <input id="datepicker" type="text" name="billing_date" value="" placeholder="billing date" class="form-control datepicker" required="">                        
                             <span class="input-group-addon" id="basic-addon2"> <i class="fa fa-calendar"></i> </span> -->
 
@@ -252,9 +263,19 @@
 <!-- <script type="text/javascript" src="{{ url('js/jquery-3.1.1.min.js')}}"></script> -->
 <script type="text/javascript" src="{{ url('js/bootstrap-datepicker.js') }}"></script>
 <script type="text/javascript">
+    $('#datepicker').datepicker({
+      autoclose: true
+    });
 	$("#datepicker").datepicker({
         format: 'yyyy-mm-dd'
     });
+    $(document)
+      .ajaxStart(function () {
+        $("#loadingDiv").addClass('show');
+      })
+      .ajaxStop(function () {
+        $("#loadingDiv").removeClass('show');
+      });
 	$("#customer_code").on('change', function(){
 	      code = $(this).val();
 	      $.ajax({
@@ -265,7 +286,10 @@
 		}).done(function(data){
 			if(data.result == false)
 			{
-				alert("Already Exit!");
+                alert("Customer code Already Exit!");
+                $("#customer_code").val("");
+                $("#customer_code").focus();
+                
 			}
 		});
 	});

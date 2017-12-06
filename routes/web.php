@@ -36,6 +36,8 @@ Route::group(['prefix' => 'shops'], function(){
 			return view('customer.create');
 	}]);
 	Route::get('/customer/{code}/check',['as' => 'shops.customer.check','uses' => 'CustomerController@check']);
+	// Route::post('/customer/search',['as' => 'shops.customer.search','uses' => 'CustomerController@search']);
+	Route::post('/customer',['as' => 'shops.customer','uses' => 'CustomerController@search']);
 	Route::post ('/customer/save',['as' => 'shops.customer.save','uses'=>'CustomerController@save']);
 
 	Route::get('/estimates',['as' => 'shops.estimates','uses' => 'EstimateController@index']);

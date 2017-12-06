@@ -38,11 +38,34 @@
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-  
+  <style type="text/css">
+    /*#loadingDiv { position: fixed; top:50%; left:50%; } */
+    #loadingDiv
+    {
+    display : none;
+    }
+    #loadingDiv.show{
+      position:absolute;
+      top:0px;
+      right:0px;
+      width:100%;
+      height:100%;
+      background-color:#666;
+      background-image:url("{!! asset('img/loading.gif') !!}");
+      background-repeat:no-repeat;
+      background-position:center;
+      z-index:10000000;
+      opacity: 0.4;
+      filter: alpha(opacity=40); /* For IE8 and earlier */
+    }  
+  </style>
 </head>
 <body class="skin-blue sidebar-mini" id="app">
 <div class="wrapper">
-
+  <div id="loadingDiv">
+    <div>
+    </div>
+  </div>
   <header class="main-header">
 
     <!-- Logo -->
@@ -181,6 +204,26 @@
     <!-- </section> -->
   </div>
   <!-- /.content-wrapper -->
+  <div class="modal fade" id="modal-default" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+          <h4 class="modal-title">Default Modal</h4>
+        </div>
+        <div class="modal-body">
+          <p>One fine body…</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
 
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
@@ -208,8 +251,17 @@
 <!-- <script src="{!! asset('js/fastclick.js') !!}"></script> -->
 <!-- AdminLTE App -->
 <script src="{!! asset('js/adminlte.js') !!}"></script>
-
+<script src="{!! asset('js/vue.js') !!}"></script>
 @yield('script')
+<script type="text/javascript">
+  $(document)
+      .ajaxStart(function () {
+        $("#loadingDiv").addClass('show');
+      })
+      .ajaxStop(function () {
+        $("#loadingDiv").removeClass('show');
+      });
+</script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/i18n/en.js"></script> -->
 <!-- Sparkline -->
 <!-- <script src="{!! asset('js/jquery.sparkline.min.js') !!}"></script> -->
