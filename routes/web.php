@@ -50,6 +50,9 @@ Route::group(['prefix' => 'shops'], function(){
 	Route::get('/invoices/{id}/show',['as' => 'shops.invoices.show','uses' => 'InvoiceController@show']);
 
 
+	Route::get('/items',['as' => 'shops.items','uses' => 'ItemController@index']);
+	Route::get('/items/new',['as' => 'shops.items.new','uses' => 'ItemController@create']);
+
 	Route::get('/category',['as' => 'shops.category','uses' => 'ShopController@index']);
 	Route::get('/category/new',['as' => 'shops.category.new','uses' => 'ShopController@create']);
 	// Route::get('/clients',['as' => 'invoice.clients','uses' => 'AdminController@getAllClient']);

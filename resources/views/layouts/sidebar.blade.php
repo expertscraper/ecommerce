@@ -35,6 +35,19 @@
 <li class="treeview">
   <a href="#">
     <i class="fa fa-list-alt"></i>
+    <span>Item</span>
+    <span class="pull-right-container">
+      <i class="fa fa-angle-left pull-right"></i>
+    </span>
+  </a>
+  <ul class="treeview-menu">
+    <li @if (Request::is('shops/items')) class="active" @endif ><a href="{{ route('shops.items') }}"><i class="fa fa-circle-o"></i> Items</a></li>
+    <li @if (Request::is('shops/items/new')) class="active" @endif><a href="{{ route('shops.items.new') }}"><i class="fa fa-circle-o"></i> Add New Item</a></li>
+  </ul>
+</li>
+<li class="treeview">
+  <a href="#">
+    <i class="fa fa-list-alt"></i>
     <span>Invoice</span>
     <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>

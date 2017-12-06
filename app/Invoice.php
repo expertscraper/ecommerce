@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Product;
 use App\Customer;
 use App\Client;
+use App\Item;
 class Invoice extends Model
 {
     protected $fillable = [
@@ -29,5 +30,10 @@ class Invoice extends Model
     public function product()
     {
         return $this->hasOne(Product::class);
+    }
+
+    public function item()
+    {
+        return $this->hasOne(Item::class);
     }
 }
