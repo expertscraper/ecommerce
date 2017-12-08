@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-md-8">
                         <p>
-                        <select class="js-example-data-array form-control" tabindex="-1" aria-hidden="true">
+                        <select id="customer" class="js-example-data-array form-control" tabindex="-1" aria-hidden="true">
                             
                         </select>
                       </p>
@@ -46,31 +46,38 @@
             <thead>
                 <tr>
                     <th width="15%">Item Name</th>
-                    <th width="38%">Quantity</th>
-                    <!-- <th width="15%">Unit</th> -->
+                    <th width="10%">Quantity</th>
+                    <th width="10%">Unit</th>
                     <th width="15%">Unit Price</th>
                     <th width="15%">Total</th>
+                    <th width="25%">Description</th>
+                    <th width="25%"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(key, item) in list">
+                <tr v-for="(key, item) in list" class="items">
                     <!-- <input type="hidden" name="data[@{{ key }}][invoice_id]" value=" "> -->
                     <!-- <td><input v-model="item.product_code" type="text" data-type="productCode" name="data[@{{ key }}][product_code]" id="itemNo_1" class="form-control autocomplete_txt" autocomplete="off" required=""></td> -->
                     <td><input v-model="item.product_name" type="text" data-type="productName" name="data[@{{ key }}][product_name]" id="itemName_1" class="form-control autocomplete_txt" autocomplete="off" required=""></td>
                     <td><input v-model="item.qty" type="number" name="data[@{{ key }}][qty]" id="quantity_1" class="form-control" autocomplete="off" required=""></td>
-                    <!-- <td><input v-model="item.unit" type="number" name="data[@{{ key }}][unit]" id="unit_1" class="form-control" autocomplete="off" required=""></td> -->
+                    <td><input v-model="item.unit" type="text" name="data[@{{ key }}][unit]" id="unit_1" class="form-control" autocomplete="off" required=""></td>
                     <td><input v-model="item.price" type="number" name="data[@{{ key }}][price]" id="price_1" class="form-control" autocomplete="off" required=""></td>
                     <td>
                     <span>@{{ item.qty * item.price}}</span>
                     <input v-model="item.total" type="hidden" name="data[@{{ key }}][total]" id="total_1" class="form-control" value="@{{ item.qty * item.price}}"></td>
-                    <td><button class="btn btn-danger delete" type="button" v-on:click="removeElement(key)"><i class="fa fa-minus"></i> Delete</button></td>
+                    <td><input v-model="item.description" type="text" data-type="description" name="data[@{{ key }}][description]" id="description" class="form-control autocomplete_txt" autocomplete="off" required=""></td>
+                    <td>
+                        <a class="btn btn-success" type="button" v-on:click="optionClick"><i class="fa fa-plus"></i></a>
+                        <a class="btn btn-danger delete" type="button" v-on:click="removeElement(key)"><i class="fa fa-minus"></i></a>
+                        <!-- <button class="btn btn-danger delete" type="button" v-on:click="removeElement(key)"><i class="fa fa-minus"></i> Delete</button> -->
+                    </td>
                 </tr>
             </tbody>
             </table>
         </div>
          <div class="col-md-12">
             <br>
-            <a class="btn btn-success" type="button" v-on:click="optionClick"><i class="fa fa-plus"></i> Add More Row</a>
+            
             <!-- <a class="btn btn-default btn-flat" type="button" href="javascript:addBlankRow()"><i class="glyphicon glyphicon-plus-sign"></i> Add Blank Row</a> -->
             <!-- <p class="help-block" style=""><i class="glyphicon glyphicon-warning-sign"></i> Empty rows will be ignored.</p> -->
             <div class="row" style="margin-top: -40px;">
@@ -92,7 +99,7 @@
                     </div>
                     <div class="col-md-7">
                         <div class="input-group">
-                            <input id="datepicker" type="text" name="due_date" value="" placeholder="due_date date" class="form-control datepicker" required="">                        
+                            <input id="datepicker" type="text" id="due_date" name="due_date" value="" placeholder="due_date date" class="form-control datepicker" required="">                        
                             <span class="input-group-addon" id="basic-addon2"> <i class="fa fa-calendar"></i> </span>
 
                         </div>   
@@ -154,8 +161,8 @@
                     </div>
                     <div class="col-md-7">
                         <div class="input-group">
-                             <input type="number" name="discount" id="discount" autocomplete="off" class="form-control ui-autocomplete-input">
-
+                            <input v-model="discounted" type="number" name="discounted" id="discounted" class="form-control" autocomplete="off" required=""></td>
+                             
                         </div>   
                     </div>
                 </div>
@@ -180,7 +187,8 @@
                     </div>
                     <div class="col-md-7">
                         <div class="input-group">
-                             <input type="number" name="tax" id="tax" autocomplete="off" class="form-control ui-autocomplete-input">
+                            <input v-model="tax" type="number" name="tax" id="tax" class="form-control" autocomplete="off" required=""></td>
+                             <!-- <input type="number" name="rate" id="taxrate" autocomplete="off" class="form-control ui-autocomplete-input"> -->
 
                         </div>   
                     </div>
@@ -199,7 +207,12 @@
                             <tr>
                                 <td>Tax</td>
                                 <td>
-                                    <span id="tax-rate">@{{ tax_rate }}</span> %<br>
+                                    <div>
+                                        <span id="tax_rate">@{{ tax_rate }}%</span>
+                                    </div>
+                                        
+                                    
+                                    <br>
                                     <span id="tax" >@{{ (subtotal/100) * tax_rate }}</span>
                                 </td>
                             </tr>
@@ -210,19 +223,21 @@
                             <tr>
                                 <td>Dicount</td>
                                 <td>
-                                    <span id="discounted">0.00</span>
+                                    <span id="discounted">
+
+                                    @{{ discounted }}</span>
                                 </td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>Paid</td>
                                 <td>
                                     <span id="paid">0.00</span>
                                 </td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <td>Due Amount</td>
                                 <td>
-                                    <strong><span id="due_amount">@{{ subtotal + ((subtotal/100) * tax) |currency}}</span></strong>
+                                    <strong><span id="due_amount">@{{ subtotal + ((subtotal/100) * tax) - discounted|currency}}</span></strong>
                                     <input type="hidden" name="amount_total" value="@{{ subtotal + ((subtotal/100) * tax)}}">
                                 </td>
                             </tr>
@@ -231,7 +246,7 @@
                 </div>
         </div>
         <div>
-                <button type="submit" class="btn btn-primary btn-flat col-xs-6 col-xs-offset-2"><i class="glyphicon glyphicon-ok"></i> Create Invoice</button>&nbsp;
+                <button type="button" class="btn btn-primary btn-flat col-xs-6 col-xs-offset-2 create"><i class="glyphicon glyphicon-ok"></i> Create New Item</button>&nbsp;
                 <button type="reset" class="btn btn-default btn-flat col-xs-offset-2">Reset</button>
             </div>
     </div>                           
@@ -404,9 +419,11 @@
                 price: '',
                 qty: '',
                 total: '',
+                description : ''
              }],
              // listResult: '',
              tax : 0,
+             discounted: 0,
              clients: {!! $customers !!},
              selected: ''
              
@@ -431,6 +448,9 @@
           tax_amt:function(){
              return (subtotal/100) * this.tax;
           },
+          // discounted:function(){
+          //    return ((subtotal/100) * this.tax) - this.discounted;
+          // },
       },
         methods: {
           optionClick: function() {
@@ -440,6 +460,7 @@
               price: '',
               qty: '',
               total: '',
+              description: ''
             });
           },
           total:function(){
@@ -452,21 +473,71 @@
 
           removeElement: function (index) {
             console.log(index);
-            this.list.splice(index, 1);
+            if(index > 0)
+            {
+                this.list.splice(index, 1);    
+            }
           },
           
         }
     })
     
-    // $('.js-data-example-ajax').select2({
-    //   ajax: {
-    //     url: 'https://api.github.com/search/repositories',
-    //     dataType: 'json'
-    //     // Additional AJAX parameters go here; see the end of this chapter for the full code of this example
-    //   }
-    // });
-
     
+    $('.create').click(function(){
+        debugger;
+        items = [];
+        $('.items').each(function(){
+            arr = {
+                item_name : $(this).find('#itemName_1').val(),
+                quantity :$(this).find('#quantity_1').val(),
+                unit : $(this).find('#unit_1').val(),
+                price : $(this).find('#price_1').val(),
+                total : $(this).find('#total_1').val(),
+                description : $(this).find('#description').val()
+            };
+
+            if(arr.quantity != "", arr.price !="")
+            {
+                items.push(arr);
+            }
+        });
+
+        if($('#due_date').val() != "" && $('#customer').val() != ""){
+            postdata = {
+                items : items,
+                due_date : $('#due_date').val(),
+                discount : $('#discounted').val(),
+                tax : $('#tax').text(),
+                sub_total : $('#sub-total').text(),
+                total : $('#due_amount').text(),
+                summary : $('#summary').val(),
+                customer : $('#customer').val()
+
+            };
+            
+            $.ajax({
+                url : "{{ route('shops.items.save') }}" ,
+                type: "POST",
+                data : {
+                  "_token": "{{ csrf_token() }}",
+                  'data': postdata
+                },
+                dataType: "html",
+                success: function(data, textStatus, jqXHR)
+                { 
+                  alert(data);
+                  //$(".box").html(data);
+
+                    // jQuery('#customer_id').html(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown)
+                {
+                  alert("Someting wrong");
+                }
+              });
+        }
+        
+    });
   </script>
 
 @endsection

@@ -269,14 +269,7 @@
 	$("#datepicker").datepicker({
         format: 'yyyy-mm-dd'
     });
-    $(document)
-      .ajaxStart(function () {
-        $("#loadingDiv").addClass('show');
-      })
-      .ajaxStop(function () {
-        $("#loadingDiv").removeClass('show');
-      });
-	$("#customer_code").on('change', function(){
+    $("#customer_code").on('change', function(){
 	      code = $(this).val();
 	      $.ajax({
 		    type:'GET',
