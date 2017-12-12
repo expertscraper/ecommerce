@@ -35,6 +35,7 @@ Route::group(['prefix' => 'shops'], function(){
 		['as' => 'shops.customer.new',function(){
 			return view('customer.create');
 	}]);
+	Route::get('/customer/{id}',['as' => 'shops.customer.edit','uses' => 'CustomerController@edit']);
 	Route::get('/customer/{code}/check',['as' => 'shops.customer.check','uses' => 'CustomerController@check']);
 	// Route::post('/customer/search',['as' => 'shops.customer.search','uses' => 'CustomerController@search']);
 	Route::post('/customer',['as' => 'shops.customer','uses' => 'CustomerController@search']);
@@ -52,7 +53,7 @@ Route::group(['prefix' => 'shops'], function(){
 
 	Route::get('/items',['as' => 'shops.items','uses' => 'ItemController@index']);
 	Route::get('/items/new',['as' => 'shops.items.new','uses' => 'ItemController@create']);
-	Route::post('/items/save',['as' => 'shops.items.save','uses' => 'ItemController@save']);
+	Route::post('/items/save',['as' => 'shops.items.save','uses' => 'ItemController@store']);
 
 	Route::get('/category',['as' => 'shops.category','uses' => 'ShopController@index']);
 	Route::get('/category/new',['as' => 'shops.category.new','uses' => 'ShopController@create']);

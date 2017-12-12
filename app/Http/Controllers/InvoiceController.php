@@ -5,15 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Invoice;
 use App\Product;
-use App\Client;
+use App\Customer;
 
 class InvoiceController extends Controller
 {
     public function index()
     {
         $customer = Customer::select('id','customer_code','customer_name','closing_date')->get();
-        echo json_encode($customer);exit;
-        $invoices = Invoice::with('client')->paginate(5);
+        
+        $invoices = Invoice::with('customer')->paginate(5);
         // echo json_encode($invoices);exit;
         //echo json_encode($invoices[0]->client);exit;
         return view('invoice.invoice',compact('invoices'));
@@ -22,9 +22,9 @@ class InvoiceController extends Controller
 
     public function create()
     {
-        $clients = Client::select('id','name')->get();
+        $customer = Customer::select('id','customer_name')->get();
         $items = Product::all();
-        return view('invoice.addinvoice2',compact('clients','items'));
+        return view('invoice.addinvoice2',compact('customer','items'));
     }
 
     
@@ -40,6 +40,7 @@ class InvoiceController extends Controller
         //     'qty'      => 'required|integer',
         //     'total'   => 'required|string',
         // ]);
+        
         
         $invoices = Invoice::create($request->all());
         $invoices->product()->createMany($request->get('data'));

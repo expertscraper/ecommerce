@@ -99,7 +99,7 @@
                     </div>
                     <div class="col-md-7">
                         <div class="input-group">
-                            <input id="datepicker" type="text" id="due_date" name="due_date" value="" placeholder="due_date date" class="form-control datepicker" required="">                        
+                            <input id="datepicker" type="text"  name="due_date" value="" placeholder="due_date date" class="form-control datepicker due_date" required="">                        
                             <span class="input-group-addon" id="basic-addon2"> <i class="fa fa-calendar"></i> </span>
 
                         </div>   
@@ -187,7 +187,7 @@
                     </div>
                     <div class="col-md-7">
                         <div class="input-group">
-                            <input v-model="tax" type="number" name="tax" id="tax" class="form-control" autocomplete="off" required=""></td>
+                            <input v-model="tax" type="number" name="tax" class="form-control" autocomplete="off" required=""></td>
                              <!-- <input type="number" name="rate" id="taxrate" autocomplete="off" class="form-control ui-autocomplete-input"> -->
 
                         </div>   
@@ -484,7 +484,7 @@
     
     
     $('.create').click(function(){
-        debugger;
+        
         items = [];
         $('.items').each(function(){
             arr = {
@@ -492,7 +492,7 @@
                 quantity :$(this).find('#quantity_1').val(),
                 unit : $(this).find('#unit_1').val(),
                 price : $(this).find('#price_1').val(),
-                total : $(this).find('#total_1').val(),
+                total : $('#total_1').val().replace(",","").replace("$",""),
                 description : $(this).find('#description').val()
             };
 
@@ -505,16 +505,16 @@
         if($('#due_date').val() != "" && $('#customer').val() != ""){
             postdata = {
                 items : items,
-                due_date : $('#due_date').val(),
+                issue_date : $('.due_date').val(),
                 discount : $('#discounted').val(),
                 tax : $('#tax').text(),
-                sub_total : $('#sub-total').text(),
-                total : $('#due_amount').text(),
+                grand_total : $('#sub-total').text().replace(",","").replace("$",""),
+                total : $('#due_amount').text().replace(",","").replace("$",""),
                 summary : $('#summary').val(),
-                customer : $('#customer').val()
+                customer_id : $('#customer').val()
 
             };
-            
+            console.log(postdata);
             $.ajax({
                 url : "{{ route('shops.items.save') }}" ,
                 type: "POST",
@@ -522,10 +522,10 @@
                   "_token": "{{ csrf_token() }}",
                   'data': postdata
                 },
-                dataType: "html",
+                dataType: "json",
                 success: function(data, textStatus, jqXHR)
                 { 
-                  alert(data);
+                    window.location.href = "items";
                   //$(".box").html(data);
 
                     // jQuery('#customer_id').html(data);

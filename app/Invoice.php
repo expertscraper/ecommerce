@@ -10,7 +10,7 @@ use App\Item;
 class Invoice extends Model
 {
     protected $fillable = [
-        'customer_id', 'invoice_id','status', 'closing_date','tax','discount',
+        'customer_id', 'invoice_id','status', 'issue_date','tax','discount',
         'grand_total','total','comment'
     ];
 

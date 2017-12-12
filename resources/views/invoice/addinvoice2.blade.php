@@ -347,7 +347,7 @@
              }],
              // listResult: '',
              tax : 0,
-             clients: {!! $clients !!},
+             clients: {!! $customer !!},
              items:{!! $items !!},
              selected: ''
              

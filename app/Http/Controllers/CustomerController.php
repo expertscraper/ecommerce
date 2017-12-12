@@ -87,5 +87,11 @@ class CustomerController extends Controller
 		// 	return "There is no results";//json_encode(array('result'=>False,'message'=>'Error'));
 		// }
 	}
+	public function edit($id)
+	{
+		$customer = Customer::where('id',$id)->get();
+		
+		return view('customer.edit',compact('customer'));
+	}
 
 }
