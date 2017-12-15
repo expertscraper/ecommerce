@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Invoice;
 use App\Product;
 use App\Customer;
+use App\Item;
 
 class InvoiceController extends Controller
 {
     public function index()
     {
-        $customer = Customer::select('id','customer_code','customer_name','closing_date')->get();
+        //$customer = Customer::select('id','customer_code','customer_name','closing_date')->get();
         
         $invoices = Invoice::with('customer')->paginate(5);
         // echo json_encode($invoices);exit;
@@ -61,7 +62,11 @@ class InvoiceController extends Controller
    
     public function edit($id)
     {
-        //
+        $invoice = Invoice::with('item')
+                    ->with('customer')
+                    ->where('id',$id)->first();
+        echo json_encode($invoice);exit;
+        return view('invoice.addinvoice2',compact('invoice'));
     }
 
     public function update(Request $request, $id)

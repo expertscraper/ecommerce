@@ -70,7 +70,7 @@
                      <!-- <th width="5%" class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 36px;"></th> -->
                      <th width="10%" class="sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 120px;">Invoice Number</th>
                      <th width="10%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 91px;">Status</th>
-                     <th width="15%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 147px;">Customer</th>
+                     <!-- <th width="15%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 147px;">Customer</th> -->
                      <th width="10%" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 91px;">Issue Date</th>
                      <th width="10%" class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 92px;">Grand Total</th>
                      <th width="10%" class="text-right sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 103px;">Total</th>
@@ -82,20 +82,16 @@
                <tbody>
                @foreach($invoices as $invoice)
                <tr role="row" class="odd">
-                  <!-- <td>{{ $invoice->id }}</td> -->
-                  <td class="sorting_1">#{{ $invoice->invoice_id }} </td>
+                  <td class="sorting_1"># {{ $invoice->invoice_id }} </td>
                   <td><span class="label label-danger">{{ ($invoice->status == "")? "Unapproved" :$invoice->status }} </span></td>
-                  <td><a href="#" class="customer">{{ $invoice->customer->customer_name }}
-                     <input type="hidden" name="customer" value="{{ $invoice->customer->id }}">
-                  </a> </td>
                   <td>{{ $invoice->issue_date }} </td>
                   <td class="text-right">{{ $invoice->grand_total }} </td>
                   <td class="text-right">{{ $invoice->total }}</td>
                   <td class="text-right">{{ $invoice->discount }}</td>
                   <td class="text-right">{{ $invoice->tax }}</td>
-                  <!-- <td class="text-right">{{ $invoice->amount_due }} </td> -->
+                  
                   <td>
-                     <a class="btn btn-info btn-xs" href="" data-rel="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-eye"></i></a>                                                                    <a href="http://ci.elantsys.com/invoices/pdf/e3aaeaf7-7dcf-450f-969f-50fcde63a1b7" data-rel="tooltip" data-placement="top" title="" class="btn btn-xs btn-primary" data-original-title="Download Invoice"><i class="fa fa-download"></i> </a>
+                     <a class="btn btn-info btn-xs" href="{{ route('shops.invoices.edit', $invoice->id) }}" data-rel="tooltip" data-placement="top" title="" data-original-title="View"><i class="fa fa-eye"></i></a>                                                                    <a href="http://ci.elantsys.com/invoices/pdf/e3aaeaf7-7dcf-450f-969f-50fcde63a1b7" data-rel="tooltip" data-placement="top" title="" class="btn btn-xs btn-primary" data-original-title="Download Invoice"><i class="fa fa-download"></i> </a>
                      <a href="#" data-rel="tooltip" data-toggle="ajax-modal" data-placement="top" title="" class="btn btn-xs btn-warning" data-original-title="Add Payment"><i class="fa fa-usd"></i> </a>
                      <a href="#" data-rel="tooltip" data-placement="top" title="" class="btn btn-xs btn-success" data-original-title="Edit Invoice"><i class="fa fa-pencil"></i></a>
                      <a class="btn btn-danger btn-xs btn-delete" data-rel="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="fa fa-trash-o"></i></a>

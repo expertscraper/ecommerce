@@ -49,7 +49,7 @@ Route::group(['prefix' => 'shops'], function(){
 	Route::get('/invoices',['as' => 'shops.invoices','uses' => 'InvoiceController@index']);
 	Route::get('/invoices/new',['as' => 'shops.invoices.new','uses' => 'InvoiceController@create']);
 	Route::get('/invoices/{id}/show',['as' => 'shops.invoices.show','uses' => 'InvoiceController@show']);
-
+	Route::get('/invoices/{id}/view',['as' => 'shops.invoices.edit','uses' => 'InvoiceController@edit']);
 
 	Route::get('/items',['as' => 'shops.items','uses' => 'ItemController@index']);
 	Route::get('/items/new',['as' => 'shops.items.new','uses' => 'ItemController@create']);

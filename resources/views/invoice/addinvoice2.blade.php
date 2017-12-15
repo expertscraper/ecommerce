@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-md-8">
                         <div class="input-group">
-                            <input id="datepicker" type="text" name="billing_date" value="" placeholder="billing date" class="form-control datepicker" required="">                        
+                            <input id="datepicker" type="text" name="billing_date" value="" placeholder="billing date" class="form-control datepicker" required="" value="{{ date('Y/m/d') }}">                        
                             <span class="input-group-addon" id="basic-addon2"> <i class="fa fa-calendar"></i> </span>
 
                         </div>   
@@ -39,15 +39,15 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-4">
-                        <div class="label-wrapper"><label class="control-label" for="invoice_number" title="">Invoice Type</label>
+                        <div class="label-wrapper"><label class="control-label" for="invoice_number" title="">Invoice Number</label>
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" name="invoice_type" id="invoice_type" autocomplete="off" class="form-control ui-autocomplete-input">
+                        <input type="text" name="invoice_type" id="invoice_number" autocomplete="off" class="form-control ui-autocomplete-input" value="">
                         
                     </div>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <div class="col-md-4">
                         <div class="label-wrapper"><label class="control-label" for="customer_name" title="">Customer Name</label>
                         </div>
@@ -58,10 +58,9 @@
                             
                         </select>
                       </p>
-                        <!-- <input type="text" name="customer_name" id="customer_name" autocomplete="off" class="form-control ui-autocomplete-input"> -->
                         
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <div class="col-md-4">
                         <div class="label-wrapper">
@@ -69,7 +68,7 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" name="billing_name" id="billing_name" autocomplete="off" class="form-control ui-autocomplete-input">
+                        <input type="text" name="billing_name" id="billing_name" autocomplete="off" class="form-control ui-autocomplete-input" value="{{ $invoice->customer->customer_name }}">
                     </div>
                 </div>
                 <div class="form-group">
@@ -79,7 +78,7 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" name="billing_name" id="billing_name" autocomplete="off" class="form-control ui-autocomplete-input">
+                        <input type="text" name="billing_name" id="billing_name" autocomplete="off" class="form-control ui-autocomplete-input" value="">
                     </div>
                 </div>
             </div>
@@ -108,7 +107,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(key, item) in list">
+                <tr v-for="(key, item) in items">
                     <!-- <input type="hidden" name="data[@{{ key }}][invoice_id]" value=" "> -->
                     <!-- <td><input v-model="item.product_code" type="text" data-type="productCode" name="data[@{{ key }}][product_code]" id="itemNo_1" class="form-control autocomplete_txt" autocomplete="off" required=""></td> -->
                     <td><input v-model="item.product_name" type="text" data-type="productName" name="data[@{{ key }}][product_name]" id="itemName_1" class="form-control autocomplete_txt" autocomplete="off" required=""></td>
@@ -301,28 +300,29 @@
     $("#datepicker").datepicker({
         format: 'yyyy-mm-dd'
     });
-    var data = [
-        {
-            id: 0,
-            text: 'enhancement'
-        },
-        {
-            id: 1,
-            text: 'bug'
-        },
-        {
-            id: 2,
-            text: 'duplicate'
-        },
-        {
-            id: 3,
-            text: 'invalid'
-        },
-        {
-            id: 4,
-            text: 'wontfix'
-        }
-    ];
+    var data = {{ $invoice->customer }};
+    // [
+    //     {
+    //         id: 0,
+    //         text: 'enhancement'
+    //     },
+    //     {
+    //         id: 1,
+    //         text: 'bug'
+    //     },
+    //     {
+    //         id: 2,
+    //         text: 'duplicate'
+    //     },
+    //     {
+    //         id: 3,
+    //         text: 'invalid'
+    //     },
+    //     {
+    //         id: 4,
+    //         text: 'wontfix'
+    //     }
+    // ];
 
         $(".js-example-data-array").select2({
           data: data
@@ -347,8 +347,8 @@
              }],
              // listResult: '',
              tax : 0,
-             clients: {!! $customer !!},
-             items:{!! $items !!},
+             customers: {!! $invoice->customer !!},
+             items:{!! $invoice->item !!},
              selected: ''
              
              
